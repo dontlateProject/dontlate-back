@@ -30,7 +30,7 @@ public class Member {
     private LocalDateTime createdAt;
     //    private String email;
 //    private String phone
-
+// 테스트 텍스트 입력.
 //    @OneToMany
 //    private List<GroupMembership> groupMembership;
 }
