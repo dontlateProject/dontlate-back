@@ -33,5 +33,4 @@ public class GroupMembership {
     @JoinColumn(name = "meetingId")
     private Meeting meetingId;
 
-
 }
