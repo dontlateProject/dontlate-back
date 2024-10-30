@@ -8,6 +8,7 @@ class HurryupApplicationTests {
 
 	@Test
 	void contextLoads() {
+		int test = 1;
 	}
 
 }
