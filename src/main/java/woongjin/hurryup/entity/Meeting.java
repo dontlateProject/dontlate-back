@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,7 +21,7 @@ public class Meeting {
     private long meetingCreatedId;
     private LocalDateTime createdAt;
 
-//    @OneToMany
-//    private List<GroupMembership> groupMemberships;
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
+    private List<GroupMembership> groupMemberships;
 
 }

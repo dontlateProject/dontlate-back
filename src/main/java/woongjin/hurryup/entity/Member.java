@@ -1,9 +1,6 @@
 package woongjin.hurryup.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +28,6 @@ public class Member {
     //    private String email;
 //    private String phone
 
-//    @OneToMany
-//    private List<GroupMembership> groupMembership;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<GroupMembership> groupMembership;
 }

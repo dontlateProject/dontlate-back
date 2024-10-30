@@ -1,9 +1,6 @@
 package woongjin.hurryup.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -23,5 +20,18 @@ public class GroupMembership {
     private LocalDateTime arriveTime;
     private boolean isLate;
     private LocalDateTime joinedGroup;
+
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "appointmentId")
+    private Appointment appointment;
+
+    @ManyToOne
+    @JoinColumn(name = "meetingId")
+    private Meeting meetingId;
+
 
 }

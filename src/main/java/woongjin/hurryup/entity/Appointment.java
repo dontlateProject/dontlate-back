@@ -25,7 +25,7 @@ public class Appointment {
     private String penalty;
     private LocalDateTime createdAt;
 
-//    @OneToMany
-//    private List<GroupMembership> groupMemberships;
+    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
+    private List<GroupMembership> groupMemberships;
 
 }
