@@ -1,10 +1,8 @@
 package woongjin.hurryup.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 import java.time.LocalDateTime;
@@ -15,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class GroupMembership {
 
     @Id
@@ -23,5 +22,17 @@ public class GroupMembership {
     private LocalDateTime arriveTime;
     private boolean isLate;
     private LocalDateTime joinedGroup;
+
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "appointmentId")
+    private Appointment appointment;
+
+    @ManyToOne
+    @JoinColumn(name = "meetingId")
+    private Meeting meeting;
 
 }

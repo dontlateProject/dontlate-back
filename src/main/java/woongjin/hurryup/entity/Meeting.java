@@ -2,6 +2,8 @@ package woongjin.hurryup.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Meeting {
 
     @Id
@@ -18,6 +21,8 @@ public class Meeting {
     private String meetingName;
     private String meetingInfo;
     private long meetingCreatedId;
+    @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
 //    @OneToMany

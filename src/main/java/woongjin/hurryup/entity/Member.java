@@ -1,13 +1,12 @@
 package woongjin.hurryup.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Member {
 
     @Id
@@ -27,10 +27,12 @@ public class Member {
 
     private String password;
 
+    @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
     //    private String email;
 //    private String phone
 
-//    @OneToMany
-//    private List<GroupMembership> groupMembership;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<GroupMembership> groupMembership;
 }
