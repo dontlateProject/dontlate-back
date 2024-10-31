@@ -12,8 +12,4 @@ import java.util.List;
 public class AppointmentService {
 
     public final AppointmentRepository appointmentRepository;
-
-    public List<Appointment> getAppointmentByMeetingId(Long id) {
-        return appointmentRepository.findAppointmentByMeetingId(id);
-    }
 }

@@ -10,10 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class MeetingWithMembersDTO {
-    private Long meetingId;
-    private String meetingName;
-    private String meetingInfo;
+public class MemberAndRankDTO {
     private List<MemberLateCountDTO> memberLateCountDTOS;
     private List<MemberDTO> members;
 }

@@ -1,4 +1,4 @@
-package woongjin.hurryup;
+package woongjin.hurryup.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
