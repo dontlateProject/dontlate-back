@@ -20,7 +20,7 @@ public class Meeting {
     private Long meetingId;
     private String meetingName;
     private String meetingInfo;
-    private long meetingCreatedId;
+    private String meetingCreatedId;
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;

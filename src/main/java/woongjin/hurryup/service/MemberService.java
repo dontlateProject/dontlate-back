@@ -3,15 +3,12 @@ package woongjin.hurryup.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import woongjin.hurryup.DTO.MemberDTO;
-import woongjin.hurryup.DTO.MemberLateCountDTO;
 import woongjin.hurryup.entity.Member;
 import woongjin.hurryup.exception.member.MemberNotFoundException;
 import woongjin.hurryup.mapper.MemberMapper;
 import woongjin.hurryup.repository.MemberRepository;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor

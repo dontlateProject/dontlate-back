@@ -1,21 +1,13 @@
 package woongjin.hurryup.controller;
 
 import lombok.RequiredArgsConstructor;
-
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import woongjin.hurryup.DTO.*;
-
 import woongjin.hurryup.entity.Meeting;
-
-
-
 import woongjin.hurryup.service.MeetingService;
-
-
-import java.util.List;
-
 
 @RestController
 @RequestMapping("/api/meeting")
@@ -45,9 +37,19 @@ public class MeetingController {
     }
 
     // 그룹 약속 조회
-    @GetMapping("/{id}/appointment")
-    public  ResponseEntity<List<AppointmentDTO>> getAppointmentByMeetingId(@PathVariable Long id) {
-        return ResponseEntity.ok(meetingService.getAppointmentByMeetingId(id));
+    @GetMapping("/{meetingId}/appointment/{memberId}")
+    public  ResponseEntity<Page<AppointmentAndAttendCheckDTO>> getAppointmentAndAttendCheckByMeetingIdAndMemberId(
+            @PathVariable Long meetingId,
+            @PathVariable String memberId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+                        ) {
+
+        Page<AppointmentAndAttendCheckDTO> appointments = meetingService.getAppointmentAndAttendCheckByMeetingIdAndMemberId(meetingId, memberId,
+                page, size
+        );
+
+        return ResponseEntity.ok(appointments);
     }
 }
 

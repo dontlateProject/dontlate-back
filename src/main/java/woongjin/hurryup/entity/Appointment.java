@@ -23,8 +23,8 @@ public class Appointment {
     private String appointmentName;
     private LocalDateTime appointmentTime;
     private String location;
-    private String appointmentStatus;
-    private long appointmentCreatedId;
+    private Boolean appointmentStatus;
+    private String appointmentCreatedId;
     private String penalty;
 
     @CreatedDate

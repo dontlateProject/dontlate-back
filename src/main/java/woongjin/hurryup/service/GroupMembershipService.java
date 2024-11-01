@@ -2,6 +2,7 @@ package woongjin.hurryup.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import woongjin.hurryup.DTO.AttendAppointmentDTO;
 import woongjin.hurryup.DTO.MemberDTO;
 import woongjin.hurryup.entity.GroupMembership;
 import woongjin.hurryup.exception.member.MemberNotFoundException;
@@ -24,6 +25,20 @@ public class GroupMembershipService {
         return memberRepository.findById(saved.getMember().getMemberId())
                 .map(MemberMapper::convertToMemberDto)
                 .orElseThrow(() -> new MemberNotFoundException("member Id not found : " + saved.getMember().getMemberId()));
+    }
+
+    public AttendAppointmentDTO attendAppointment(GroupMembership groupMembership) {
+
+
+        GroupMembership save = groupMembershipRepository.save(groupMembership);
+
+
+        return AttendAppointmentDTO.builder()
+                .membershipId(save.getMembershipId())
+                .appointmentId(save.getAppointment().getAppointmentId())
+                .meetingId(save.getMeeting().getMeetingId())
+                .memberId(save.getMember().getMemberId())
+                .build();
     }
 
 }

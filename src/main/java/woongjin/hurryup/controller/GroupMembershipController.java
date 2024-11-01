@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import woongjin.hurryup.DTO.AttendAppointmentDTO;
 import woongjin.hurryup.DTO.MemberDTO;
 import woongjin.hurryup.entity.GroupMembership;
 import woongjin.hurryup.exception.member.MemberNotFoundException;
@@ -25,5 +26,11 @@ public class GroupMembershipController {
 
             MemberDTO memberInMeeting = groupMembershipService.createMemberInMeeting(groupMembership);
             return  ResponseEntity.ok(memberInMeeting);
+    }
+
+    // 약속 참석
+    @PostMapping("/appointment")
+    public ResponseEntity<AttendAppointmentDTO> attendAppointment(@RequestBody GroupMembership groupMembership) {
+        return  ResponseEntity.ok(groupMembershipService.attendAppointment(groupMembership));
     }
 }

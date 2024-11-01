@@ -16,7 +16,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     WHERE meeting_id = :meetingId
     GROUP BY MEMBER_ID 
 )
-""", nativeQuery = true)
+""",nativeQuery = true)
     List<Member> findMemberByMeetingId(@Param("meetingId") Long meetingId);
 
     @Query(value = """
@@ -32,6 +32,8 @@ public interface MemberRepository extends JpaRepository<Member, String> {
             WHERE gm.is_late = true AND gm.meeting_id = :meetingId
             GROUP BY am.appointment_id, m.nickname, m.member_id
             ORDER BY late_count DESC
-""", nativeQuery = true)
+            LIMIT 5;
+"""
+            ,nativeQuery = true)
     List<Object[]> findMemberByMeetingIdOrderByLate(@Param("meetingId") Long meetingId);
 }

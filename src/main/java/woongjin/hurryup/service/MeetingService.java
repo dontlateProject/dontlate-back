@@ -1,6 +1,10 @@
 package woongjin.hurryup.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import woongjin.hurryup.DTO.*;
 import woongjin.hurryup.entity.Meeting;
@@ -11,6 +15,8 @@ import woongjin.hurryup.repository.AppointmentRepository;
 import woongjin.hurryup.repository.MeetingRepository;
 import woongjin.hurryup.repository.MemberRepository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +54,7 @@ public class MeetingService {
         return new MemberAndRankDTO(memberByMeetingIdOrderByLate,members);
     }
 
+    // 그룹 약속 조회
     public List<AppointmentDTO> getAppointmentByMeetingId(Long meetingId) {
         return appointmentRepository.findAppointmentByMeetingId(meetingId).stream()
                 .map(appointment -> AppointmentDTO.builder()
@@ -62,6 +69,17 @@ public class MeetingService {
                 .collect(Collectors.toList());
     }
 
+    // 그룹 약속 조회 + 참석여부 체크
+    public Page<AppointmentAndAttendCheckDTO> getAppointmentAndAttendCheckByMeetingIdAndMemberId(
+            Long meetingId, String memberId, int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Object[]> appointmentsPage = appointmentRepository.findAppointmentAndAttendCheckByMeetingIdAndMemberId(meetingId, memberId, pageable);
+
+        List<AppointmentAndAttendCheckDTO> appointmentAndAttendCheckDTOS = convertToAppointAndAttendCheckDto(appointmentsPage.getContent());
+        return new PageImpl<>(appointmentAndAttendCheckDTOS, pageable,appointmentsPage.getTotalElements());
+    }
+
     // MemberLateCountDTO 변환 메서드
     private List<MemberLateCountDTO> convertToDto(List<Object[]> results) {
 
@@ -74,24 +92,24 @@ public class MeetingService {
                         .lateTime(((Number) result[4]).intValue())
                         .build())
                 .collect(Collectors.toList());
+    }
 
-//        List<MemberLateCountDTO> dtos = new ArrayList<>();
-//        for (Object[] result : results) {
-//            String memberId = (String) result[0];
-//            String nickname = (String) result[1];
-//            Long appointmentId = ((Number) result[2]).longValue();
-//            int lateCount = ((Number)result[3]).intValue();
-//            int lateTime = ((Number)result[4]).intValue();
-//
-//            dtos.add(MemberLateCountDTO.builder()
-//                            .memberId(memberId)
-//                            .nickname(nickname)
-//                            .appointmentId(appointmentId)
-//                            .lateCount(lateCount)
-//                            .lateTime(lateTime)
-//                    .build());
-//        }
-//        return dtos;
+    // AppointmentAndAttendCheckDTO 변환 메서드
+    private List<AppointmentAndAttendCheckDTO> convertToAppointAndAttendCheckDto(List<Object[]> results) {
+
+        return results.stream()
+                .map(result -> AppointmentAndAttendCheckDTO.builder()
+                        .appointmentId(((Number) result[0]).longValue())
+                        .appointmentCreatedId((String) result[1])
+                        .appointmentName((String) result[2])
+                        .appointmentStatus((Boolean) result[3])
+                        .appointmentTime(((Timestamp) result[4]).toLocalDateTime())
+                        .createdAt(((Timestamp) result[5]).toLocalDateTime())
+                        .location((String) result[6])
+                        .penalty((String) result[7])
+                        .isAttend((Boolean) result[8])
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }
