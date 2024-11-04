@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,7 +26,7 @@ public class Meeting {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-//    @OneToMany
-//    private List<GroupMembership> groupMemberships;
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
+    private List<GroupMembership> groupMemberships;
 
 }

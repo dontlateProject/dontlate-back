@@ -31,7 +31,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
             JOIN member m ON gm.member_id = m.member_id
             WHERE gm.is_late = true AND gm.meeting_id = :meetingId
             GROUP BY am.appointment_id, m.nickname, m.member_id
-            ORDER BY late_count DESC
+            ORDER BY late_count, late_time DESC
             LIMIT 5;
 """
             ,nativeQuery = true)

@@ -31,7 +31,7 @@ public class Appointment {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-//    @OneToMany
-//    private List<GroupMembership> groupMemberships;
+    @OneToMany(mappedBy = "appointment")
+    private List<GroupMembership> groupMemberships;
 
 }
