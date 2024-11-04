@@ -1,7 +1,12 @@
 package woongjin.hurryup.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import woongjin.hurryup.entity.GroupMembership;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Appointment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appointmentId;
@@ -20,12 +24,16 @@ public class Appointment {
     private String appointmentName;
     private LocalDateTime appointmentTime;
     private String location;
-    private String appointmentStatus;
-    private long appointmentCreatedId;
+    private Boolean appointmentStatus;
+    private String appointmentCreatedId;
     private String penalty;
+
+    @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
-//    @OneToMany
-//    private List<GroupMembership> groupMemberships;
+    @OneToMany(mappedBy = "appointment")
+    private List<GroupMembership> groupMemberships; // 이 관계가 중요합니다.
 
+    // 직접 GroupMembership에 대한 ManyToOne 관계가 필요 없다면 아래 필드는 제거
 }
