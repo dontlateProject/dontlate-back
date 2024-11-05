@@ -18,7 +18,7 @@ public class Meeting {
     private Long meetingId;
     private String meetingName;
     private String meetingInfo;
-    private long meetingCreatedId;
+    private String meetingCreatedId;
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)

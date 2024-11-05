@@ -31,7 +31,7 @@ public class GroupMembership {
 
     @ManyToOne
     @JoinColumn(name = "meetingId")
-    private Meeting meetingId;
+    private Meeting meeting;
 
 
 }
